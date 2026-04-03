@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import * as api from '../api/tasks';
+import { useState, useEffect, useCallback } from "react";
+import * as api from "../api/task";
 
 export function useTasks() {
   const [tasks, setTasks] = useState([]);
@@ -19,7 +19,9 @@ export function useTasks() {
     }
   }, []);
 
-  useEffect(() => { loadTasks(); }, [loadTasks]);
+  useEffect(() => {
+    loadTasks();
+  }, [loadTasks]);
 
   const addTask = async (taskData) => {
     const newTask = await api.createTask(taskData);
@@ -38,5 +40,13 @@ export function useTasks() {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
-  return { tasks, loading, error, addTask, updateTaskStatus, removeTask, refresh: loadTasks };
+  return {
+    tasks,
+    loading,
+    error,
+    addTask,
+    updateTaskStatus,
+    removeTask,
+    refresh: loadTasks,
+  };
 }

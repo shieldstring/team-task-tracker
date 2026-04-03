@@ -16,7 +16,7 @@ CREATE INDEX idx_tasks_status ON tasks (status);
 -- Index for ordering by created_at
 CREATE INDEX idx_tasks_created_at ON tasks (created_at DESC);
 
--- ── Seed data (optional, for local development) 
+-- ── Seed data docker compose up --build
 INSERT INTO tasks (title, description, status) VALUES
   ('Set up project repository',   'Initialise Git, add .gitignore and README', 'done'),
   ('Design database schema',      'Define tasks table with correct constraints', 'done'),
