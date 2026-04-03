@@ -1,0 +1,17 @@
+{
+    "name": "team-task-tracker-tests",
+    "version": "1.0.0",
+    "description": "Mocha test suite for Team Task Tracker",
+    "scripts": {
+      "test": "NODE_ENV=test mocha tasks.test.js --exit --timeout 10000"
+    },
+    "dependencies": {
+      "chai": "^4.4.1",
+      "chai-http": "^4.4.0",
+      "cors": "^2.8.5",
+      "express": "^4.19.2",
+      "mocha": "^10.4.0",
+      "pg": "^8.11.5",
+      "dotenv": "^16.4.5"
+    }
+  }

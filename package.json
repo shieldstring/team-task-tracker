@@ -1,0 +1,11 @@
+{
+    "name": "team-task-tracker",
+    "version": "1.0.0",
+    "description": "Team Task Tracker – monorepo root",
+    "scripts": {
+      "test": "cd tests && npm test",
+      "backend": "cd backend && npm start",
+      "backend:dev": "cd backend && npm run dev",
+      "frontend": "cd frontend && npm start"
+    }
+  }
