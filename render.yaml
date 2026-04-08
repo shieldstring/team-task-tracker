@@ -15,13 +15,14 @@ services:
           name: task-tracker-db
           property: connectionString
 
-  # Frontend Static Site
-  - type: static
+  # Frontend Web Service (Serving Static Build)
+  - type: web
     name: task-tracker-frontend
+    runtime: node
     plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishDir: build
+    startCommand: npx serve -s build
     envVars:
       - key: REACT_APP_API_URL
         fromService:
