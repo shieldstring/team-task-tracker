@@ -75,4 +75,4 @@ jobs:
         run: npm run build
         working-directory: frontend
         env:
-          REACT_APP_API_URL: http://localhost:5000 # Placeholder for build-time check
+          REACT_APP_API_URL: https://task-tracker-backend-ou89.onrender.com

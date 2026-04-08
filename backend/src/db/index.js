@@ -24,16 +24,24 @@ pool.on('error', (err) => {
 const query = (text, params) => pool.query(text, params);
  
 const initDb = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS tasks (
-      id        SERIAL PRIMARY KEY,
-      title       VARCHAR(255) NOT NULL,
-      description TEXT,
-      status      VARCHAR(20) NOT NULL DEFAULT 'todo'
-                    CHECK (status IN ('todo', 'in-progress', 'done')),
-      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    );
-  `);
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS tasks (
+        id        SERIAL PRIMARY KEY,
+        title       VARCHAR(255) NOT NULL,
+        description TEXT,
+        status      VARCHAR(20) NOT NULL DEFAULT 'todo'
+                      CHECK (status IN ('todo', 'in-progress', 'done')),
+        created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `);
+  } catch (err) {
+    console.error('❌ Database Initialization Failed:');
+    console.error(`Message: ${err.message}`);
+    console.error(`Detail: ${err.detail || 'No additional detail'}`);
+    console.error(`Hint: ${err.hint || 'Check if your database is running and credentials are correct.'}`);
+    throw err; // Re-throw to be handled by server.js
+  }
 };
  
 module.exports = { query, pool, initDb };

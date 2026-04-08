@@ -25,10 +25,7 @@ services:
     startCommand: npx serve -s build
     envVars:
       - key: REACT_APP_API_URL
-        fromService:
-          type: web
-          name: task-tracker-backend
-          property: host
+        value: https://task-tracker-backend-ou89.onrender.com
         # Note: In production, the frontend might need the external URL.
         # If both are on Render, you can often use the .onrender.com URL.
 
