@@ -1,0 +1,38 @@
+services:
+  # Backend Web Service
+  - type: web
+    name: task-tracker-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: task-tracker-db
+          property: connectionString
+
+  # Frontend Static Site
+  - type: web
+    name: task-tracker-frontend
+    plan: free
+    rootDir: frontend
+    runtime: node
+    buildCommand: npm install && npm run build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: task-tracker-backend
+          property: host
+        # Note: In production, the frontend might need the external URL.
+        # If both are on Render, you can often use the .onrender.com URL.
+
+databases:
+  - name: task-tracker-db
+    databaseName: task_tracker
+    user: tracker_user
+    plan: free

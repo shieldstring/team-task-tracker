@@ -1,4 +1,5 @@
-const BASE_URL = process.env.REACT_APP_API_URL || '/tasks';
+const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+const TASKS_ENDPOINT = `${API_BASE_URL}/tasks`;
 
 const handleResponse = async (res) => {
   if (!res.ok) {
@@ -10,21 +11,21 @@ const handleResponse = async (res) => {
 };
 
 export const fetchTasks = () =>
-  fetch(BASE_URL).then(handleResponse);
+  fetch(TASKS_ENDPOINT).then(handleResponse);
 
 export const createTask = (data) =>
-  fetch(BASE_URL, {
+  fetch(TASKS_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   }).then(handleResponse);
 
 export const updateTask = (id, data) =>
-  fetch(`${BASE_URL}/${id}`, {
+  fetch(`${TASKS_ENDPOINT}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   }).then(handleResponse);
 
 export const deleteTask = (id) =>
-  fetch(`${BASE_URL}/${id}`, { method: 'DELETE' }).then(handleResponse);
+  fetch(`${TASKS_ENDPOINT}/${id}`, { method: 'DELETE' }).then(handleResponse);

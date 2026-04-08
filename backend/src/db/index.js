@@ -1,11 +1,19 @@
 const { Pool } = require('pg');
  
+const isProduction = process.env.NODE_ENV === 'production';
+const connectionString = process.env.DATABASE_URL;
+
 const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'task_tracker',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
+  connectionString: connectionString,
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
+  // Fallback for local development if DATABASE_URL is not set
+  ...(connectionString ? {} : {
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT || '5432'),
+    database: process.env.DB_NAME || 'task_tracker',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+  })
 });
  
 pool.on('error', (err) => {
